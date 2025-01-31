@@ -1,3 +1,9 @@
+import { UploadWidget } from './components/upload-widget'
+
 export function App() {
-  return <h1>Hello World</h1>
+  return (
+    <main className="h-dvh flex flex-col items-center justify-center">
+      <UploadWidget />
+    </main>
+  )
 }
