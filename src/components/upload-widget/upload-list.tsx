@@ -19,7 +19,7 @@ export function UploadWidgetList() {
             closed: { opacity: 0 },
             open: {
               opacity: 1,
-              transition: { staggerChildren: 0.1 },
+              transition: { staggerChildren: 0.3 },
             },
           }}
           initial="closed"

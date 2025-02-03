@@ -1,5 +1,6 @@
 import * as Collapsible from '@radix-ui/react-collapsible'
 import { motion, useCycle } from 'motion/react'
+import { useRef, useLayoutEffect, useState } from 'react'
 
 import { UploadWidgetDropzone } from './dropzone'
 import { UploadWidgetHeader } from './header'
@@ -7,9 +8,19 @@ import { UploadWidgetMinimizeButton } from './minimize-button'
 import { UploadWidgetList } from './upload-list'
 
 export function UploadWidget() {
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  const [contentHeight, setContentHeight] = useState(0)
+
   const isThereAnyPendingUpload = true
 
   const [isWidgetOpen, toggleWidgetOpen] = useCycle(false, true)
+
+  useLayoutEffect(() => {
+    if (contentRef.current && isWidgetOpen) {
+      setContentHeight(contentRef.current.offsetHeight)
+    }
+  }, [isWidgetOpen])
 
   return (
     <Collapsible.Root onOpenChange={() => toggleWidgetOpen()} asChild>
@@ -19,9 +30,9 @@ export function UploadWidget() {
         variants={{
           open: {
             width: 360,
-            height: 'auto',
+            height: contentHeight,
             transition: {
-              duration: 0.1,
+              duration: 0.2,
             },
           },
 
@@ -29,7 +40,7 @@ export function UploadWidget() {
             width: 'max-content',
             height: 44,
             transition: {
-              type: 'inertia',
+              type: 'keyframes',
             },
           },
         }}
@@ -52,7 +63,7 @@ export function UploadWidget() {
       >
         {!isWidgetOpen && <UploadWidgetMinimizeButton />}
 
-        <Collapsible.Content>
+        <Collapsible.Content ref={contentRef}>
           <UploadWidgetHeader />
 
           <div className="flex flex-col gap-4 py-3">
