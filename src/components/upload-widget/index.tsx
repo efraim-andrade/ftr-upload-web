@@ -7,11 +7,14 @@ import { UploadWidgetMinimizeButton } from './minimize-button'
 import { UploadWidgetList } from './upload-list'
 
 export function UploadWidget() {
+  const isThereAnyPendingUpload = true
+
   const [isWidgetOpen, toggleWidgetOpen] = useCycle(false, true)
 
   return (
-    <Collapsible.Root onOpenChange={() => toggleWidgetOpen()}>
+    <Collapsible.Root onOpenChange={() => toggleWidgetOpen()} asChild>
       <motion.div
+        data-progress={isThereAnyPendingUpload}
         animate={isWidgetOpen ? 'open' : 'closed'}
         variants={{
           open: {
@@ -30,7 +33,22 @@ export function UploadWidget() {
             },
           },
         }}
-        className="bg-zinc-900 overflow-hidden max-w-[360px] rounded-xl shadow-shape"
+        className="
+          border 
+          rounded-xl 
+          max-w-[360px] 
+          animate-border 
+          border-transparent 
+          
+          bg-zinc-900 
+          overflow-hidden 
+
+          data-[state=open]:shadow-shape 
+          
+          data-[state=closed]:rounded-3xl 
+          data-[state=closed]:data-[progress=false]:shadow-shape 
+          data-[state=closed]:data-[progress=true]:[background:linear-gradient(45deg,#09090B,theme(colors.zinc.900)_50%,#09090B)_padding-box,conic-gradient(from_var(--border-angle),theme(colors.zinc.700/.48)_80%,_theme(colors.indigo.500)_86%,_theme(colors.indigo.300)_90%,_theme(colors.indigo.500)_94%,_theme(colors.zinc.600/.48))_border-box]
+        "
       >
         {!isWidgetOpen && <UploadWidgetMinimizeButton />}
 
