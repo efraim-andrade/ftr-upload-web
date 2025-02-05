@@ -44,6 +44,7 @@ export function UploadWidget() {
             height: 44,
             transition: {
               type: 'keyframes',
+              duration: 0.125,
             },
           },
         }}
