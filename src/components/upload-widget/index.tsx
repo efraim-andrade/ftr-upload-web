@@ -32,7 +32,7 @@ export function UploadWidget() {
             width: 360,
             height: contentHeight,
             transition: {
-              duration: 0.2,
+              duration: 0.15,
             },
           },
 

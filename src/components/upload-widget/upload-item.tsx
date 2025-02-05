@@ -3,8 +3,16 @@ import { Download, ImageUp, Link2, RefreshCcw, X } from 'lucide-react'
 import { motion } from 'motion/react'
 
 import { Button } from '../ui/button'
+import type { Upload } from '../../store/uploads'
+import { formatBytes } from '../../utils/format-bytes'
 
-export function UploadWidgetUploadItem() {
+type UploadWidgetUploadItemProps = {
+  upload: Upload
+}
+
+export function UploadWidgetUploadItem({
+  upload,
+}: UploadWidgetUploadItemProps) {
   return (
     <motion.div
       variants={{
@@ -16,11 +24,11 @@ export function UploadWidgetUploadItem() {
       <div className="flex flex-col gap-1">
         <span className="text-xs font-medium flex items-center gap-1">
           <ImageUp className="size-3 text-zinc-300" strokeWidth={1.5} />
-          screenshot.png
+          {upload.name}
         </span>
 
         <span className="text-xxs text-zinc-400 flex gap-1.5 items-center">
-          <span className="line-through">3MB</span>
+          <span className="line-through">{formatBytes(upload.file.size)}</span>
 
           <div className="size-1 rounded-full bg-zinc-700" />
 
