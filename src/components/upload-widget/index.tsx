@@ -6,6 +6,7 @@ import { UploadWidgetDropzone } from './dropzone'
 import { UploadWidgetHeader } from './header'
 import { UploadWidgetMinimizeButton } from './minimize-button'
 import { UploadWidgetList } from './upload-list'
+import { useUploads } from '../../store/uploads'
 
 export function UploadWidget() {
   const contentRef = useRef<HTMLDivElement>(null)
@@ -14,13 +15,15 @@ export function UploadWidget() {
 
   const isThereAnyPendingUpload = true
 
+  const upload = useUploads(state => state.uploads)
   const [isWidgetOpen, toggleWidgetOpen] = useCycle(false, true)
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useLayoutEffect(() => {
     if (contentRef.current && isWidgetOpen) {
       setContentHeight(contentRef.current.offsetHeight)
     }
-  }, [isWidgetOpen])
+  }, [isWidgetOpen, upload])
 
   return (
     <Collapsible.Root onOpenChange={() => toggleWidgetOpen()} asChild>
