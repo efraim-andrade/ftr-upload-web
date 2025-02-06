@@ -29,8 +29,14 @@ export function UploadWidgetList() {
           animate="open"
           className="flex flex-col gap-2 mt-2"
         >
-          {Array.from(uploads.entries()).map(([uploadId, upload]) => {
-            return <UploadWidgetUploadItem key={uploadId} upload={upload} />
+          {Array.from(uploads).map(([uploadId, upload]) => {
+            return (
+              <UploadWidgetUploadItem
+                key={uploadId}
+                upload={upload}
+                uploadId={uploadId}
+              />
+            )
           })}
         </motion.div>
       )}
