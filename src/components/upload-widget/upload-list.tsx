@@ -11,7 +11,7 @@ export function UploadWidgetList() {
   return (
     <div className="flex-col gap-3 px-4">
       <span className="text-xs font-medium ">
-        Uploaded files <span className="text-zinc-400">(2)</span>
+        Uploaded files <span className="text-zinc-400">({uploads.size})</span>
       </span>
 
       {isUploadListEmpty ? (

@@ -2,6 +2,7 @@ import axios from 'axios'
 
 type UploadFileToStorageParams = {
   file: File
+  onProgress: (sizeInBytes: number) => void
 }
 
 type UploadFileToStorageOptions = {
@@ -9,7 +10,7 @@ type UploadFileToStorageOptions = {
 }
 
 export async function uploadFileToStorage(
-  { file }: UploadFileToStorageParams,
+  { file, onProgress }: UploadFileToStorageParams,
   options?: UploadFileToStorageOptions
 ) {
   const data = new FormData()
@@ -21,6 +22,9 @@ export async function uploadFileToStorage(
       'Content-Type': 'multipart/form-data',
     },
     signal: options?.signal,
+    onUploadProgress: progressEvent => {
+      onProgress(progressEvent.loaded)
+    },
   })
 
   return { url: response }
