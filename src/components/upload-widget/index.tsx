@@ -6,14 +6,14 @@ import { UploadWidgetDropzone } from './dropzone'
 import { UploadWidgetHeader } from './header'
 import { UploadWidgetMinimizeButton } from './minimize-button'
 import { UploadWidgetList } from './upload-list'
-import { useUploads } from '../../store/uploads'
+import { usePendingUploads, useUploads } from '../../store/uploads'
 
 export function UploadWidget() {
   const contentRef = useRef<HTMLDivElement>(null)
 
-  const [contentHeight, setContentHeight] = useState(0)
+  const { isThereAnyPendingUploads } = usePendingUploads()
 
-  const isThereAnyPendingUpload = true
+  const [contentHeight, setContentHeight] = useState(0)
 
   const upload = useUploads(state => state.uploads)
   const [isWidgetOpen, toggleWidgetOpen] = useCycle(false, true)
@@ -28,7 +28,7 @@ export function UploadWidget() {
   return (
     <Collapsible.Root onOpenChange={() => toggleWidgetOpen()} asChild>
       <motion.div
-        data-progress={isThereAnyPendingUpload}
+        data-progress={isThereAnyPendingUploads}
         animate={isWidgetOpen ? 'open' : 'closed'}
         variants={{
           open: {
