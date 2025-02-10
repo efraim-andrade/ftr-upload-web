@@ -27,5 +27,5 @@ export async function uploadFileToStorage(
     },
   })
 
-  return { url: response }
+  return { url: response.data }
 }
