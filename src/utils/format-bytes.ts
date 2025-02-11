@@ -10,7 +10,7 @@ export function formatBytes(bytes: number): string {
   let totalBytes = bytes
 
   while (totalBytes >= oneKB && index < units.length - 1) {
-    totalBytes = bytes / oneKB
+    totalBytes = totalBytes / oneKB
     index++
   }
 

@@ -30,7 +30,7 @@ export function UploadWidgetUploadItem({
     if (!upload.compressedSizeInBytes) return
 
     return Math.round(
-      (upload.originalSizeInBytes / upload.compressedSizeInBytes) * 100
+      ((upload.originalSizeInBytes - upload.compressedSizeInBytes) * 100) / upload.originalSizeInBytes 
     )
   })()
 
@@ -43,7 +43,7 @@ export function UploadWidgetUploadItem({
       className="p-3 rounded-lg flex flex-col gap-3 shadow-shape-content bg-white/2 relative overflow-hidden"
     >
       <div className="flex flex-col gap-1">
-        <span className="text-xs font-medium flex items-center gap-1">
+        <span className="text-xs font-medium flex items-center gap-1 truncate max-w-40">
           <ImageUp className="size-3 text-zinc-300" strokeWidth={1.5} />
           {upload.name}
         </span>
@@ -102,9 +102,11 @@ export function UploadWidgetUploadItem({
       </Progress.Root>
 
       <div className="absolute top-2.5 right-2.5 flex items-center gap-1">
-        <Button disabled={upload.status !== 'success'} size="icon-sm">
-          <Download className="size-4" strokeWidth={1.5} />
-          <span className="sr-only">Download compressed image</span>
+        <Button aria-disabled={upload.status !== 'success'} size="icon-sm" asChild>
+          <a href={upload.remoteUrl} download>
+            <Download className="size-4" strokeWidth={1.5} />
+            <span className="sr-only">Download compressed image</span>
+          </a>
         </Button>
 
         <Button
