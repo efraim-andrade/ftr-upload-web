@@ -11,13 +11,13 @@ export function UploadWidgetTitle() {
 
       {isThereAnyPendingUploads ? (
         <span className="flex items-baseline gap-1">
-          Uploading{' '}
+          Uploading 🚀{' '}
           <span className="text-xs text-zinc-400 tabular-nums">
             {uploadGlobalPercentage}%
           </span>
         </span>
       ) : (
-        <span>Upload files</span>
+        <span>Upload files ☠️</span>
       )}
     </div>
   )
