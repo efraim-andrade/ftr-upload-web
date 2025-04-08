@@ -1,4 +1,4 @@
-name: Deploy to s3
+name: Deploy production
 
 on:
   push:
