@@ -50,7 +50,7 @@ jobs:
       - name: Deploy app
         id: deploy-app
         run: |
-          vercel deploy --prebuilt -prod --token=${{ secrets.VERCEL_TOKEN }}
+          vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
 
       # - name: Install dependencies
       #   id: install-dependencies
